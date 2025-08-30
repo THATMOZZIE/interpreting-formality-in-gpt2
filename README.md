@@ -8,9 +8,10 @@ This project demonstrates that abstract stylistic properties like "formality" ca
 
 **Key Result:** We achieve a 12.2x stronger effect on formality compared to random control vectors, with clear behavioral changes from casual ("a bunch of stuff") to formal ("the production of chemical energy") language.
 
-![Formality Steering Results](formality_steering_results.png)
+<img width="1000" height="600" alt="Figure_1" src="https://github.com/user-attachments/assets/fcab928f-c64f-417b-b236-f03fba489f6c" />
 
 ## Methodology
+
 
 1. **Direction Extraction**: Computed difference between activations on formal vs informal text pairs
 2. **Activation Steering**: Applied direction during generation using PyTorch hooks at layer 20
