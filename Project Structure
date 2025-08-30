@@ -1,0 +1,8 @@
+formality-steering-gpt2/
+├── MATS_formality_vectors.py   # Main experiment: vector extraction & steering
+├── MATS_Analysis_Only.py       # Statistical analysis of saved results
+├── systematic_results.pkl      # 500 treatment samples (generated)
+├── control_results.pkl         # 500 control samples (generated)
+├── formality_steering_results.png  # Main results figure
+├── requirements.txt            # Python dependencies
+└── README.md                   # This file
