@@ -1,0 +1,6 @@
+Key Findings
+
+Formality is a discoverable linear direction in GPT-2's activation space
+Bidirectional control: Can both increase and decrease formality
+Robust to noise: Vector contains tokenization artifacts but still produces clean behavioral control
+Layer-specific: Strongest effects at layer 20 (late but not final layer)
