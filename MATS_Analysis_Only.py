@@ -334,5 +334,6 @@ print("\nReady to write executive summary!")
 # With effect sizes this big and error bars this tight,
 # p-value has to be < 0.001 at least
 #
-# I think this is enough evidence to claim we found a real formality
+# I think this is enough evidence to claim that I found a real formality
 # direction in GPT-2!
+
