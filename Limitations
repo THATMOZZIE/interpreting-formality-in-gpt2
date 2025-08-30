@@ -1,0 +1,6 @@
+Limitations
+
+Tested only on GPT-2 Medium (resource constraints)
+F-Score metric is a simple proxy for formality
+Vector contains some tokenization artifacts
+Limited to English text
