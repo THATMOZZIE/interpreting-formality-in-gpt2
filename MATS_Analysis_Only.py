@@ -16,6 +16,18 @@ with open('control_results.pkl', 'rb') as f:
 
 print(f"Loaded {len(systematic_results)} treatment + {len(control_results)} control samples")
 
+# Define TEST_PROMPTS (need this for analysis)
+TEST_PROMPTS = [
+    "The process of photosynthesis involves",  # Scientific
+    "Climate change refers to",               # Environmental/Political 
+    "Machine learning algorithms are",        # Technical
+    "The Roman Empire was",                   # Historical
+    "Economic inflation occurs when"          # Economic
+]
+
+# Also need regex import for token analysis
+import re
+
 # Setting up for analysis
 STRENGTH_VALUES = [-2.0, -1.0, 0.0, 1.0, 2.0]
 
@@ -116,12 +128,141 @@ print(f"Effect size ratio: {abs(treatment_slope/control_slope):.1f}x")
 # Wow, 12x effect size! That's huge!
 
 ########################################################
+# ADDITIONAL EXPERIMENTS - Using existing data
+########################################################
+
+print("\n" + "="*60)
+print("ADDITIONAL EXPERIMENTS")
+print("="*60)
+
+# EXPERIMENT 2: Per-Prompt Analysis (Generalization Test)
+print("\n" + "-"*40)
+print("EXPERIMENT 2: Per-Prompt Generalization")
+print("-"*40)
+
+print("\nTesting if formality effect generalizes across all prompts:")
+
+for prompt in TEST_PROMPTS:
+    # Filter data for this prompt only
+    prompt_treatment = df_treatment[df_treatment['prompt'] == prompt]
+    
+    # Calculate mean F-score for each strength for this prompt
+    prompt_means = []
+    for strength in STRENGTH_VALUES:
+        mean_score = prompt_treatment[prompt_treatment['strength'] == strength]['f_score'].mean()
+        prompt_means.append(mean_score)
+    
+    # Calculate slope for this specific prompt
+    if len(prompt_means) == len(STRENGTH_VALUES):
+        slope, intercept = np.polyfit(STRENGTH_VALUES, prompt_means, 1)
+        print(f"\n'{prompt[:30]}...'")
+        print(f"  Slope: {slope:.4f}")
+        print(f"  Effect: {'✓ Positive' if slope > 0 else '✗ Negative'}")
+
+# EXPERIMENT 3: Token-Level Analysis
+print("\n" + "-"*40)
+print("EXPERIMENT 3: Token-Level Analysis")
+print("-"*40)
+
+print("\nAnalyzing what changes in generated text:")
+
+# Academic markers to look for
+academic_markers = ['therefore', 'thus', 'however', 'furthermore', 'moreover', 
+                   'consequently', 'subsequently', 'nevertheless', 'accordingly']
+
+for strength in [-2.0, 0.0, 2.0]:  # Just analyze extremes + baseline
+    strength_samples = [r for r in systematic_results if r['strength'] == strength]
+    
+    total_tokens = 0
+    total_unique = set()
+    academic_count = 0
+    total_sentences = 0
+    
+    for sample in strength_samples[:50]:  # Analyze first 50 samples
+        text = sample['generated_text'].lower()
+        tokens = text.split()
+        total_tokens += len(tokens)
+        total_unique.update(tokens)
+        
+        # Count academic markers
+        for marker in academic_markers:
+            academic_count += text.count(marker)
+        
+        # Count sentences
+        sentences = re.split(r'[.!?]+', text)
+        total_sentences += len([s for s in sentences if s.strip()])
+    
+    vocab_diversity = len(total_unique) / total_tokens if total_tokens > 0 else 0
+    avg_tokens_per_sent = total_tokens / total_sentences if total_sentences > 0 else 0
+    
+    print(f"\nStrength {strength:+.1f}:")
+    print(f"  Vocabulary diversity: {vocab_diversity:.3f}")
+    print(f"  Avg tokens/sentence: {avg_tokens_per_sent:.1f}")
+    print(f"  Academic markers found: {academic_count}")
+
+print("\n" + "="*60)
+
+
+# Skip the ablation part, just add this after Experiment 3:
+
+print("\n" + "-"*40)
+print("EXPERIMENT 4: Statistical Significance")
+print("-"*40)
+
+from scipy.stats import pearsonr
+
+# Test correlation between strength and F-score
+correlation, p_value = pearsonr(
+    df_treatment['strength'], 
+    df_treatment['f_score']
+)
+print(f"\nFormality vector effect:")
+print(f"  Correlation: {correlation:.4f}")
+print(f"  P-value: {p_value:.10f}")
+print(f"  Significance: {'***' if p_value < 0.001 else '**' if p_value < 0.01 else '*' if p_value < 0.05 else 'ns'}")
+
+# Also test control for comparison
+control_corr, control_p = pearsonr(
+    df_control['strength'],
+    df_control['f_score']
+)
+print(f"\nRandom vector (control):")
+print(f"  Correlation: {control_corr:.4f}")
+print(f"  P-value: {control_p:.10f}")
+
+########################################################
 # VISUALIZATION
 ########################################################
 
 print("\n" + "="*60)
 print("CREATING VISUALIZATION")
 print("="*60)
+
+# Bar chart of slopes per domain
+import matplotlib.pyplot as plt
+
+domains = ['Photosynthesis', 'Climate', 'ML', 'Roman Empire', 'Inflation']
+slopes = [0.3143, 0.4569, 0.5045, 0.4294, 0.4358]
+
+plt.figure(figsize=(8, 5))
+plt.bar(domains, slopes, color='#2E86AB')
+plt.ylabel('Slope (Effect Size)', fontsize=12)
+plt.title('Formality Effect Generalizes Across All Domains', fontsize=14)
+plt.axhline(y=0, color='black', linestyle='-', alpha=0.3)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('domain_generalization.png')
+
+# Histogram showing distribution shift
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+for i, strength in enumerate([-2.0, 0.0, 2.0]):
+    samples = [r for r in systematic_results if r['strength'] == strength]
+    sentence_lengths = [r['avg_sentence_len'] for r in samples[:100]]
+    
+    axes[i].hist(sentence_lengths, bins=15, color=['#A23B72', '#888', '#2E86AB'][i], alpha=0.7)
+    axes[i].set_title(f'Strength {strength:+.1f}')
+    axes[i].set_xlabel('Avg Sentence Length')
+    axes[i].axvline(np.mean(sentence_lengths), color='red', linestyle='--')
 
 # Get stats for error bars
 treatment_stats = df_treatment.groupby('strength')['f_score'].agg(['mean', 'std', 'count'])
@@ -181,7 +322,6 @@ print(f"2. Random control shows no systematic effect (slope={control_slope:.4f})
 print(f"3. Effect size is {abs(treatment_slope/control_slope):.1f}x stronger than random")
 print("\nReady to write executive summary!")
 
-# Holy crap this actually worked 
 # The formality vector has a perfect linear relationship with F-Score
 # while the random vector is basically flat. 
 # This is textbook perfect and that makes me very skeptical so I will have the LLMS adversarily and rigorously 
