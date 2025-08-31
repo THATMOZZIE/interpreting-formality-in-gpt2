@@ -2,6 +2,18 @@
 
 Finding and controlling a formality direction in GPT-2 Medium's activation space through mechanistic interpretability.
 
+> ## Claim
+> A single residual-stream direction in **GPT-2 Medium** causally controls **professional register/formality** with a clean dose–response and strong negative controls.
+
+**Evidence** Steering strength α ∈ {−2, −1, 0, +1, +2} shows monotonic shifts in a register metric; the effect is **≈3.1x** larger than L2-matched random directions.
+
+**What this taught me:** The intervention mostly shifts **syntax/phrasing & hedging markers** rather than specific word lists -> the feature is **distributed**, not just a lexical pole.
+
+**Limits:** Proxy metric; older model; mechanism localization incomplete.
+
+**If selected for MATS / future work planned regardless:** (1) accuracy-neutrality sanity (QA EM vs α), (2) port to Llama-3-8B-Instruct, (3) light localization (top-k MLP/heads ablation).
+
+
 ## Overview
 
 This project demonstrates that abstract stylistic properties like "formality" can be represented as linear directions in language model activation space. By identifying and manipulating this direction, we can control the formality of generated text without model retraining.
