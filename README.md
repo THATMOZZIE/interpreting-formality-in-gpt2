@@ -30,7 +30,6 @@ This project demonstrates that abstract stylistic properties like "formality" ca
 2. **Activation Steering**: Applied direction during generation using PyTorch hooks at layer 20
 3. **Validation**: Tested on 1000 samples (500 treatment, 500 control) across 5 prompts
 
-## Quick Start
 
 ## Quick Start
 ```bash
