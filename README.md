@@ -32,16 +32,11 @@ This project demonstrates that abstract stylistic properties like "formality" ca
 
 ## Quick Start
 
+## Quick Start
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/formality-steering-gpt2.git
-cd formality-steering-gpt2
-
-# Install dependencies
+git clone https://github.com/THATMOZZIE/interpreting-formality-in-gpt2.git
+cd interpreting-formality-in-gpt2
 pip install -r requirements.txt
+python MATS_formality_vectors.py     # runs generation + saves results
+python MATS_Analysis_Only.py         # makes figures from saved results
 
-# Run main experiment (generates 1000 samples, ~10 minutes)
-python MATS_formality_vectors.py
-
-# Analyze saved results (instant)
-python MATS_Analysis_Only.py
