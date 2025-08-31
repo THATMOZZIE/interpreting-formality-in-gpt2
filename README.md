@@ -19,7 +19,7 @@ Finding and controlling a formality direction in GPT-2 Medium's activation space
 
 This project demonstrates that abstract stylistic properties like "formality" can be represented as linear directions in language model activation space. By identifying and manipulating this direction, we can control the formality of generated text without model retraining.
 
-**Key Result:** We achieve a 12.2x stronger effect on formality compared to random control vectors, with clear behavioral changes from casual ("a bunch of stuff") to formal ("the production of chemical energy") language.
+**Key Result:** We achieve a 3.1x stronger effect on formality compared to random control vectors, with clear behavioral changes from casual ("a bunch of stuff") to formal ("the production of chemical energy") language.
 
 <img width="1000" height="600" alt="Figure_1 additional" src="https://github.com/user-attachments/assets/e87ad9a6-6643-40ad-942c-eaac8fde1866" />
 
