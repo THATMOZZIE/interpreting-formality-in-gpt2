@@ -790,12 +790,12 @@ print(f"\nVector norm: {formality_vector.norm().item():.4f}")
 #
 # INTERPRETATION - VECTOR QUALITY ASSESSMENT:
 #
-# INFORMAL TOKENS (GOOD): ✓
+# INFORMAL TOKENS (GOOD): 
 # [' stuff', ' you', ' a', ' get', ' the', ' it', ' really', ' got', ' guys', ' shit', ' just', ' I']
 # - These make perfect sense: casual words, pronouns, simple vocabulary, profanity
 # - Clear evidence the vector captures informal language patterns
 #
-# FORMAL TOKENS (CORRUPTED): ❌  
+# FORMAL TOKENS (CORRUPTED):   
 # ['ゼウス', '��', 'displayText', 'cffff', 'ThumbnailImage', 'isSpecialOrderable', 'Footnote']
 # - Japanese characters, HTML artifacts, corrupted unicode, technical tokens
 # - This suggests our vector is contaminated with encoding/tokenization noise
@@ -1112,18 +1112,19 @@ print(f"  Slope: {treatment_slope:.4f} (F-Score change per unit strength)")
 print(f"\nRandom vector:")
 print(f"  Slope: {control_slope:.4f} (F-Score change per unit strength)")
 
-# This is the money number!!!
+# This is the money number
 print(f"\nEffect size ratio: {abs(treatment_slope/control_slope):.2f}x")
 print(f"Interpretation: Formality vector has {abs(treatment_slope/control_slope):.1f}x stronger effect than random")
 
 print("\nAnalysis complete. Ready for visualization.")
 
-# 12x stronger than random so it actualy worked I think
+# 3.1x stronger than random so it actualy worked I think
 # looks like i found formality direction in the GPT -2 model. 
 
 # Create MATS_Analysis_Only.py to run analysis by loading the data above and not having to
 # deal with all this code anymore at this point.
 #Next Step: Statistical analysis, confirm / test / stress, write-up
+
 
 
 
