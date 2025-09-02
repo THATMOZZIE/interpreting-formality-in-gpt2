@@ -10,7 +10,7 @@ This repository contains the code and analysis for my MATS 9.0 application, a me
 
 I successfully isolated a single direction in GPT-2 Medium's activation space that robustly and bidirectionally controls the formality of generated text. The primary experiment demonstrates a clear, monotonic relationship between the strength of the applied "formality vector" and a quantitative formality score. The effect is highly specific (over 3x stronger than a random vector control), proving that this abstract stylistic concept is encoded as a simple, manipulable linear feature.
 
-![Key Result Graph](plots/formality_steering_results.png)
+<img width="1000" height="600" alt="Figure_1 additional" src="https://github.com/user-attachments/assets/20a7c0e7-15b7-42dd-82cb-d1b71be691e6" />
 
 ---
 
