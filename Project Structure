@@ -2,10 +2,8 @@ interpreting-formality-in-gpt2/
 ├── data/
 │   └── prompt_pairs.json
 ├── src/
-│   ├── settings.py
-│   ├── create_vector.py
-│   ├── run_experiments.py
-│   └── analyze_results.py
+│   ├── python MATS_formality_vectors.py   # runs generation + saves results    
+│   └── python MATS_Analysis_Only.py       # makes figures from saved results
 ├── results/
 │   ├── raw_results.pkl
 │   └── formality_steering_plot.png
