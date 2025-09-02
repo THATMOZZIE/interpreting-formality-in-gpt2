@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from scipy import stats
 
 # Load the results I already generated
-with open('systematic_results.pkl', 'rb') as f:
-    systematic_results = pickle.load(f)
+with open('data/systematic_results.pkl', 'rb') as f:
+        systematic_results = pickle.load(f)
     
 with open('control_results.pkl', 'rb') as f:
     control_results = pickle.load(f)
@@ -336,4 +336,5 @@ print("\nReady to write executive summary!")
 #
 # I think this is enough evidence to claim that I found a real formality
 # direction in GPT-2!
+
 
