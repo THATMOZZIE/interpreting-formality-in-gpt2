@@ -6,12 +6,16 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
+import os
 
-# Load the results I already generated
+# Create the plots directory if it doesn't exist
+os.makedirs('plots', exist_ok=True)
+
+# Load the results from the data/ directory
 with open('data/systematic_results.pkl', 'rb') as f:
-        systematic_results = pickle.load(f)
+    systematic_results = pickle.load(f)
     
-with open('control_results.pkl', 'rb') as f:
+with open('data/control_results.pkl', 'rb') as f:
     control_results = pickle.load(f)
 
 print(f"Loaded {len(systematic_results)} treatment + {len(control_results)} control samples")
@@ -251,7 +255,7 @@ plt.title('Formality Effect Generalizes Across All Domains', fontsize=14)
 plt.axhline(y=0, color='black', linestyle='-', alpha=0.3)
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig('domain_generalization.png')
+plt.savefig('plots/domain_generalization.png') # <--- SAVES IN THE PLOTS FOLDER
 
 # Histogram showing distribution shift
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
@@ -263,6 +267,7 @@ for i, strength in enumerate([-2.0, 0.0, 2.0]):
     axes[i].set_title(f'Strength {strength:+.1f}')
     axes[i].set_xlabel('Avg Sentence Length')
     axes[i].axvline(np.mean(sentence_lengths), color='red', linestyle='--')
+fig.savefig('plots/histogram_distribution_shift.png', dpi=150)
 
 # Get stats for error bars
 treatment_stats = df_treatment.groupby('strength')['f_score'].agg(['mean', 'std', 'count'])
@@ -306,7 +311,7 @@ plt.text(0.5, -0.6, f'Effect Size Ratio: {abs(z[0]/z_control[0]):.1f}x',
          fontsize=11, bbox=dict(boxstyle="round,pad=0.3", facecolor="yellow", alpha=0.3))
 
 plt.tight_layout()
-plt.savefig('formality_steering_results.png', dpi=150, bbox_inches='tight')
+plt.savefig('plots/formality_steering_results.png', dpi=150, bbox_inches='tight') # <--- SAVES IN THE PLOTS FOLDER
 plt.show()
 
 print("\nVisualization saved as 'formality_steering_results.png'")
@@ -336,5 +341,6 @@ print("\nReady to write executive summary!")
 #
 # I think this is enough evidence to claim that I found a real formality
 # direction in GPT-2!
+
 
 
