@@ -33,10 +33,10 @@ This project successfully controlled a behavior but didn't fully explain the und
 ---
 
 ## Project Structure
-
+```
 interpreting-formality-in-gpt2/
 │
-├── README.md                   # Main project write-up (you are here)
+├── README.md                   # Main project write-up
 ├── requirements.txt            # Project dependencies
 │
 ├── MATS_formality_vectors.py   # Main script to generate the vector and run all experiments
@@ -49,7 +49,7 @@ interpreting-formality-in-gpt2/
 └── plots/
     ├── formality_steering_results.png # Main output graph (displayed above)
     └── ... other generated plots ...
-
+```
 
 ---
 
