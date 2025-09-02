@@ -1015,12 +1015,11 @@ print(f"- Generated {len(control_results)} control samples")
 # SAVE YOUR RESULTS (add this once after Phase 4C)
 
 import pickle
+import os
 
-with open('systematic_results.pkl', 'wb') as f:
-    pickle.dump(systematic_results, f)
-    
-with open('control_results.pkl', 'wb') as f:
-    pickle.dump(control_results, f)
+    os.makedirs('data', exist_ok=True) # Create data directory if it doesn't exist
+    with open('data/systematic_results.pkl', 'wb') as f:
+        pickle.dump(systematic_results, f)
     
 print("Results saved to disk!")
 
@@ -1124,3 +1123,4 @@ print("\nAnalysis complete. Ready for visualization.")
 # Create MATS_Analysis_Only.py to run analysis by loading the data above and not having to
 # deal with all this code anymore at this point.
 #Next Step: Statistical analysis, confirm / test / stress, write-up
+
