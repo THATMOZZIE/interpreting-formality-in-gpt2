@@ -1,3 +1,23 @@
+## Project Structure
+interpreting-formality-in-gpt2/
+│
+├── .gitignore
+├── LICENSE
+├── README.md
+├── requirements.txt
+│
+├── MATS_formality_vectors.py # Main script: Generates the steering vector and runs all experiments
+│
+├── MATS_Analysis_Only.py # Analysis script: Loads saved data and generates all plots/stats
+│
+├── data/
+│ ├── systematic_results.pkl # Saved data from the formality vector experiment (Treatment)
+│ └── control_results.pkl # Saved data from the random vector experiment (Control)
+│
+└── plots/
+├── formality_steering_results.png # Main output graph comparing treatment vs. control
+└── domain_generalization.png # Bar chart showing effect generalization
+
 # **Finding and Controlling a Formality Direction in GPT-2 Medium**
 
 This repository contains the code and analysis for my MATS 9.0 application, a mechanistic interpretability investigation into the linear representation of stylistic properties in language models.
