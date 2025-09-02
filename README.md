@@ -2,42 +2,54 @@
 
 This repository contains the code and analysis for my MATS 9.0 application, a mechanistic interpretability investigation into the linear representation of stylistic properties in language models.
 
-**Core Finding:** I successfully isolated a single direction in GPT-2 Medium's activation space that robustly and bidirectionally controls the formality of generated text. The effect is highly specific (over 3x stronger than a random vector control) and demonstrates that abstract stylistic concepts are encoded as simple, manipulable linear features.
-
-**Code and Full Write-up:**
-*   **GitHub Repository:** [https://github.com/THATMOZZIE/interpreting-formality-in-gpt2](https://github.com/THATMOZZIE/interpreting-formality-in-gpt2)
 *   **Executive Summary:** [https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing](https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing)
 
 ---
 
-## Key Result: Dose-Dependent Control of Formality
+## Key Finding: Dose-Dependent Control of Formality
 
-The primary experiment demonstrates a clear, monotonic relationship between the strength of the applied "formality vector" and a quantitative formality score. The random vector control shows no systematic effect, confirming the specificity of the learned direction.
+I successfully isolated a single direction in GPT-2 Medium's activation space that robustly and bidirectionally controls the formality of generated text. The primary experiment demonstrates a clear, monotonic relationship between the strength of the applied "formality vector" and a quantitative formality score. The effect is highly specific (over 3x stronger than a random vector control), proving that this abstract stylistic concept is encoded as a simple, manipulable linear feature.
 
-<img width="1000" height="600" alt="Figure_1 additional" src="https://github.com/user-attachments/assets/e87ad9a6-6643-40ad-942c-eaac8fde1866" />
+![Key Result Graph](plots/formality_steering_results.png)
 
 ---
 
 ## Research Vision & Future Directions
 
-This project serves as a successful proof-of-concept. My goal, if selected for MATS, is to build on this work to tackle more safety-critical problems in modern models. My research is guided by the principles of **applied interpretability** and **model biology**.
-
-My future work will focus on three key areas:
+This project serves as a successful proof-of-concept. My goal, if selected for MATS, is to build on this work to tackle more safety-critical problems in modern models, guided by the principles of **applied interpretability** and **model biology**. My future work will focus on three key areas:
 
 **1. Generalizing to Modern Architectures (Model Biology):**
-The first priority is to test the universality of this finding. While GPT-2 is a clean baseline, the key question is whether this linear encoding of style is a fundamental property of transformers or an artifact of an older architecture.
-*   **Next Step:** Replicate this entire experiment on a modern, instruction-tuned model like **Llama-3 8B**. This will test if the "formality" direction is a consistent feature across different training paradigms (pre-training vs. instruction-tuning).
+The first priority is to test the universality of this finding.
+*   **Next Step:** Replicate this entire experiment on a modern, instruction-tuned model like **Llama-3 8B** to test if the "formality" direction is a consistent feature across different training paradigms.
 
 **2. Application to Safety-Relevant Attributes (Applied Interpretability):**
-The ability to control formality is a toy problem that validates a powerful methodology. The ultimate goal is to apply this technique to attributes that are directly relevant to AI safety.
-*   **Next Step:** I plan to use the same difference-in-means and steering methodology to attempt to isolate and control vectors for more critical attributes, such as:
-    *   **Honesty/Truthfulness:** By comparing activations on prompts where the model is truthful vs. sycophantic.
-    *   **Harmfulness/Refusal:** By extending the work of Arditi et al. to different refusal mechanisms.
-    *   **Humor:** As a complex, nuanced test case for controlling subjective properties.
+The ultimate goal is to apply this methodology to attributes that are directly relevant to AI safety.
+*   **Next Step:** I plan to use the same difference-in-means and steering methodology to isolate and control vectors for more critical attributes, such as **Honesty/Truthfulness**, **Harmfulness/Refusal**, and **Humor**.
 
 **3. Deeper Mechanistic Understanding:**
-This project successfully controlled a behavior, but it didn't fully explain the underlying circuit.
-*   **Next Step:** I will move beyond simple steering and use techniques like **activation patching** and **path patching** to identify the specific heads and MLP neurons that are most influenced by the formality vector. This will help us move from *controlling* the "formality" knob to *understanding the mechanism* that creates it.
+This project successfully controlled a behavior but didn't fully explain the underlying circuit.
+*   **Next Step:** I will move beyond simple steering and use techniques like **activation patching** and **path patching** to identify the specific heads and MLP neurons that are most influenced by the formality vector, moving from *controlling* the behavior to *understanding the mechanism*.
+
+---
+
+## Project Structure
+
+interpreting-formality-in-gpt2/
+│
+├── README.md                   # Main project write-up (you are here)
+├── requirements.txt            # Project dependencies
+│
+├── MATS_formality_vectors.py   # Main script to generate the vector and run all experiments
+├── MATS_Analysis_Only.py       # Analysis script to load saved data and reproduce plots/stats
+│
+├── data/
+│   ├── systematic_results.pkl  # Saved data from the formality vector experiment (Treatment)
+│   └── control_results.pkl     # Saved data from the random vector experiment (Control)
+│
+└── plots/
+    ├── formality_steering_results.png # Main output graph (displayed above)
+    └── ... other generated plots ...
+
 
 ---
 
@@ -79,3 +91,21 @@ However, the core scientific conclusion is robust and consistently reproduces ac
 2.  **This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
 
 For full numerical reproducibility of future runs, a random seed (`seed = 42`) has now been implemented in the main script, `MATS_formality_vectors.py`.
+
+---
+
+## Limitations
+
+This was a time-constrained project that successfully established a proof-of-concept, but it has several important limitations that I plan to address in future work:
+
+1.  **Proxy Metric for Formality:** The "F-Score" (a combination of sentence and word length) is a crude proxy for the abstract concept of formality. While effective, the vector could be interpreted as a "verbosity vector" rather than a pure "formality vector." Future work should use more sophisticated classifiers or human evaluations to validate the effect.
+2.  **Noisy Vector Representation:** Vocabulary projection revealed that the "formal" pole of the vector was contaminated with tokenization artifacts (e.g., Japanese characters, HTML tokens). While the vector worked despite this noise, future work should focus on cleaning the vector to isolate a purer representation of formality.
+3.  **Lack of Mechanistic Explanation:** The project demonstrates *that* steering at layer 20 works, but not *why*. The next crucial step is a deeper analysis (e.g., activation patching) to identify the specific model components that utilize this directional information.
+
+---
+
+## Citation
+
+This work builds upon the general methodology of activation steering. The most direct inspiration for using difference-in-means to find a stylistic/behavioral vector comes from the paper:
+
+*   "Refusal in Large Language Models as Mediated by a Single Direction" by Arditi et al. (2024).
