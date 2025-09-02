@@ -43,36 +43,36 @@ This project successfully controlled a behavior, but it didn't fully explain the
 
 ---
 
-## Setup & Reproduction
+## Reproducing the Results
 
-To reproduce the results from this initial project:
+To reproduce the findings from scratch, clone the repository and run the scripts in order.
 
 **1. Clone the repository:**
 ```bash
 git clone https://github.com/THATMOZZIE/interpreting-formality-in-gpt2.git
-cd interpreting-formality-in-gpt2
-```
+cd interpreting-formality-in-gpt2```
 
 **2. Install dependencies:**
 ```bash
 pip install -r requirements.txt
-```
 
-**3. Run the experiment:**
+**3. Run data generation script:**
+First, run the data generation script. This will create the steering vector, run both the treatment (formality vector) and control (random vector) experiments (1000 generations total), and save the results into the data/ folder. This will take several minutes.
 ```bash
-# This script runs the full generation and saves results to .pkl files
 python MATS_formality_vectors.py
 
-# This script loads the saved results and generates the final plots
+**4. Run the analysis script:**
+```bash
 python MATS_Analysis_Only.py
-```
 
-### A Note on Reproducibility
+##A Note on Reproducibility
 
-The results presented in the submitted executive summary were generated prior to fixing a random seed. Due to the stochastic nature of text generation (`do_sample=True`) and the random initialization of the control vector, the exact numerical values (e.g., F-scores, regression slopes) will vary slightly on each run.
+The results presented in the submitted executive summary were generated prior to fixing a random seed. Due to the stochastic nature of text generation (do_sample=True) and the random initialization of the control vector, the exact numerical values (e.g., F-scores, regression slopes) will vary slightly on each run.
 
 However, the core scientific conclusion is robust and consistently reproduces across different random seeds:
-1.  **The formality vector demonstrates a strong, statistically significant, dose-dependent effect on the formality of generated text.**
-2.  **This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
 
-For full numerical reproducibility of future runs, a random seed (`seed = 42`) has now been implemented in the main script, `MATS_formality_vectors.py`.
+**1. The formality vector demonstrates a strong, statistically significant, dose-dependent effect on the formality of generated text.**
+**2. This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
+
+For full numerical reproducibility of future runs, a random seed (seed = 42) has now been implemented in the main script, MATS_formality_vectors.py.
+
