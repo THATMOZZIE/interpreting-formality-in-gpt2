@@ -55,6 +55,20 @@ import re
 import matplotlib.pyplot as plt
 import time
 import pandas as pd
+import random
+import os
+
+# ===================================================================
+# SETTING RANDOM SEED FOR REPRODUCIBILITY
+# ===================================================================
+seed = 42
+torch.manual_seed(seed)
+np.random.seed(seed)
+random.seed(seed)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
+# ===================================================================
+
 
 # Starting with the basics - need to track what I'm doing
 # Phase 1: Setup and create F-Score metric
@@ -1124,6 +1138,7 @@ print("\nAnalysis complete. Ready for visualization.")
 # Create MATS_Analysis_Only.py to run analysis by loading the data above and not having to
 # deal with all this code anymore at this point.
 #Next Step: Statistical analysis, confirm / test / stress, write-up
+
 
 
 
