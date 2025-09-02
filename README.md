@@ -66,3 +66,13 @@ python MATS_formality_vectors.py
 # This script loads the saved results and generates the final plots
 python MATS_Analysis_Only.py
 ```
+
+### A Note on Reproducibility
+
+The results presented in the submitted executive summary were generated prior to fixing a random seed. Due to the stochastic nature of text generation (`do_sample=True`) and the random initialization of the control vector, the exact numerical values (e.g., F-scores, regression slopes) will vary slightly on each run.
+
+However, the core scientific conclusion is robust and consistently reproduces across different random seeds:
+1.  **The formality vector demonstrates a strong, statistically significant, dose-dependent effect on the formality of generated text.**
+2.  **This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
+
+For full numerical reproducibility of future runs, a random seed (`seed = 42`) has now been implemented in the main script, `MATS_formality_vectors.py`.
