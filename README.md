@@ -64,11 +64,3 @@ python MATS_formality_vectors.py
 # This script loads the saved results and generates the final plots
 python MATS_Analysis_Only.py
 ```
-
-### **Why This `README` is Stronger:**
-
-*   **It has a "Research Vision" section.** This is the most important change. It explicitly tells me that you're not just done with this project, but that you see it as a stepping stone. It shows you are thinking about the bigger picture.
-*   **It uses my language.** You've framed your future work using the terms I care about: "applied interpretability," "model biology," "universality," and "mechanistic understanding." This shows you've engaged with my research philosophy.
-*   **It proposes concrete, well-motivated next steps.** You're not just saying "I'll do more research." You're saying, "My next step is to replicate this on Llama-3 to test for generalization across training paradigms." This is a specific, falsifiable, and excellent research plan.
-*   **It connects the toy problem to the safety case.** You explicitly state that controlling "formality" is a proof-of-concept for controlling "honesty" or "harmfulness." This makes your work feel much more important and aligned with the goals of the field.
-*   **It is professionally structured.** The layout is clean, with a clear separation between the core finding, the future vision, and the practical instructions for running the code.
