@@ -1,14 +1,12 @@
-
-
 # **Finding and Controlling a Formality Direction in GPT-2 Medium**
 
 This repository contains the code and analysis for my MATS 9.0 application, a mechanistic interpretability investigation into the linear representation of stylistic properties in language models.
 
-**Core Finding:** I successfully isolated a single direction in GPT-2 Medium's activation space that robustly and bidirectionally controls the formality of generated text. The effect is highly specific (3.1x stronger than a random vector control) and demonstrates that abstract stylistic concepts are encoded as simple, manipulable linear features.
+**Core Finding:** I successfully isolated a single direction in GPT-2 Medium's activation space that robustly and bidirectionally controls the formality of generated text. The effect is highly specific (over 3x stronger than a random vector control) and demonstrates that abstract stylistic concepts are encoded as simple, manipulable linear features.
 
 **Code and Full Write-up:**
 *   **GitHub Repository:** [https://github.com/THATMOZZIE/interpreting-formality-in-gpt2](https://github.com/THATMOZZIE/interpreting-formality-in-gpt2)
-*   **Executive Summary:** *https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing*
+*   **Executive Summary:** [https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing](https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing)
 
 ---
 
@@ -16,7 +14,7 @@ This repository contains the code and analysis for my MATS 9.0 application, a me
 
 The primary experiment demonstrates a clear, monotonic relationship between the strength of the applied "formality vector" and a quantitative formality score. The random vector control shows no systematic effect, confirming the specificity of the learned direction.
 
-*<img width="1000" height="600" alt="Figure_1 additional" src="https://github.com/user-attachments/assets/e87ad9a6-6643-40ad-942c-eaac8fde1866" />*
+<img width="1000" height="600" alt="Figure_1 additional" src="https://github.com/user-attachments/assets/e87ad9a6-6643-40ad-942c-eaac8fde1866" />
 
 ---
 
@@ -41,39 +39,43 @@ The ability to control formality is a toy problem that validates a powerful meth
 This project successfully controlled a behavior, but it didn't fully explain the underlying circuit.
 *   **Next Step:** I will move beyond simple steering and use techniques like **activation patching** and **path patching** to identify the specific heads and MLP neurons that are most influenced by the formality vector. This will help us move from *controlling* the "formality" knob to *understanding the mechanism* that creates it.
 
-
+---
 
 ## Reproducing the Results
 
 To reproduce the findings from scratch, clone the repository and run the scripts in order.
 
-**1. Clone the repository:**
-```bash
-git clone https://github.com/THATMOZZIE/interpreting-formality-in-gpt2.git
-cd interpreting-formality-in-gpt2```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/THATMOZZIE/interpreting-formality-in-gpt2.git
+    cd interpreting-formality-in-gpt2
+    ```
 
-**2. Install dependencies:**
-```bash
-pip install -r requirements.txt
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-**3. Run data generation script:**
-First, run the data generation script. This will create the steering vector, run both the treatment (formality vector) and control (random vector) experiments (1000 generations total), and save the results into the data/ folder. This will take several minutes.
-```bash
-python MATS_formality_vectors.py
+3.  **Run the full pipeline:**
 
-**4. Run the analysis script:**
-```bash
-python MATS_Analysis_Only.py
+    First, run the data generation script. This will create the steering vector, run both the treatment (formality vector) and control (random vector) experiments (1000 generations total), and save the results into the `data/` folder. This will take several minutes.
+    ```bash
+    python MATS_formality_vectors.py
+    ```
+    Next, run the analysis script. This will load the generated data from `data/` and create the final plots in the `plots/` directory.
+    ```bash
+    python MATS_Analysis_Only.py
+    ```
 
-##A Note on Reproducibility
+---
 
-The results presented in the submitted executive summary were generated prior to fixing a random seed. Due to the stochastic nature of text generation (do_sample=True) and the random initialization of the control vector, the exact numerical values (e.g., F-scores, regression slopes) will vary slightly on each run.
+### A Note on Reproducibility
+
+The results presented in the submitted executive summary were generated prior to fixing a random seed. Due to the stochastic nature of text generation (`do_sample=True`) and the random initialization of the control vector, the exact numerical values (e.g., F-scores, regression slopes) will vary slightly on each run.
 
 However, the core scientific conclusion is robust and consistently reproduces across different random seeds:
 
-**1. The formality vector demonstrates a strong, statistically significant, dose-dependent effect on the formality of generated text.**
-**2. This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
+1.  **The formality vector demonstrates a strong, statistically significant, dose-dependent effect on the formality of generated text.**
+2.  **This effect is specific, proving to be significantly stronger than a random vector control of the same norm.**
 
-For full numerical reproducibility of future runs, a random seed (seed = 42) has now been implemented in the main script, MATS_formality_vectors.py.
-
----
+For full numerical reproducibility of future runs, a random seed (`seed = 42`) has now been implemented in the main script, `MATS_formality_vectors.py`.
