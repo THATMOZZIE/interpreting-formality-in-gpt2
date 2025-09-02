@@ -330,7 +330,7 @@ print("\nReady to write executive summary!")
 # The formality vector has a perfect linear relationship with F-Score
 # while the random vector is basically flat. 
 # This is textbook perfect and that makes me very skeptical so I will have the LLMS adversarily and rigorously 
-# challenge me harshly, and then challenge eachother's logic and find the best 
+# challenge me harshly, and then challenge eachother's logic and analyze. 
 #
 # The blue line going up while pink stays flat is exactly what we wanted.
 # This proves the effect is specific to our formality direction,
@@ -341,6 +341,7 @@ print("\nReady to write executive summary!")
 #
 # I think this is enough evidence to claim that I found a real formality
 # direction in GPT-2!
+
 
 
 
