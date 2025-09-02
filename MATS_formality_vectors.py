@@ -1018,24 +1018,28 @@ print(f"- Generated {len(control_results)} control samples")
 
 
 ########################################################
-# SAVE RESULTS - Don't want to regenerate these!
-# Didn't realize i was wasting time regenerating when I can just save them.
+# SAVE RESULTS
 ########################################################
 
-# LOAD YOUR RESULTS (instead of regenerating)
 import pickle
 import os
+
+print("\n" + "="*60)
+print("SAVING EXPERIMENTAL RESULTS")
+print("="*60)
 
 # Create the data directory if it doesn't exist
 os.makedirs('data', exist_ok=True) 
 
+# Save the treatment group results
 with open('data/systematic_results.pkl', 'wb') as f:
     pickle.dump(systematic_results, f)
     
+# Save the control group results
 with open('data/control_results.pkl', 'wb') as f:
     pickle.dump(control_results, f)
     
-print("Results saved to data/ directory!")
+print(f"\nSuccessfully saved {len(systematic_results)} treatment and {len(control_results)} control samples to the 'data/' directory.")
 
 ########################################################
 # PHASE 5A: Statistical Analysis
@@ -1120,5 +1124,6 @@ print("\nAnalysis complete. Ready for visualization.")
 # Create MATS_Analysis_Only.py to run analysis by loading the data above and not having to
 # deal with all this code anymore at this point.
 #Next Step: Statistical analysis, confirm / test / stress, write-up
+
 
 
