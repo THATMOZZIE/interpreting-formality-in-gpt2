@@ -41,7 +41,7 @@ The ability to control formality is a toy problem that validates a powerful meth
 This project successfully controlled a behavior, but it didn't fully explain the underlying circuit.
 *   **Next Step:** I will move beyond simple steering and use techniques like **activation patching** and **path patching** to identify the specific heads and MLP neurons that are most influenced by the formality vector. This will help us move from *controlling* the "formality" knob to *understanding the mechanism* that creates it.
 
----
+
 
 ## Reproducing the Results
 
@@ -76,3 +76,4 @@ However, the core scientific conclusion is robust and consistently reproduces ac
 
 For full numerical reproducibility of future runs, a random seed (seed = 42) has now been implemented in the main script, MATS_formality_vectors.py.
 
+---
