@@ -87,7 +87,9 @@ if torch.cuda.is_available():
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model_name = "gpt2-medium" 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
+# model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
+# New, corrected version
+model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch.float16).to(device)
 tokenizer.pad_token = tokenizer.eos_token
 
 def calculate_f_score(text):
@@ -1138,6 +1140,7 @@ print("\nAnalysis complete. Ready for visualization.")
 # Create MATS_Analysis_Only.py to run analysis by loading the data above and not having to
 # deal with all this code anymore at this point.
 #Next Step: Statistical analysis, confirm / test / stress, write-up
+
 
 
 
