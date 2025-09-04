@@ -3,6 +3,7 @@
 This repository contains the code and analysis for my MATS 9.0 application, a mechanistic interpretability investigation into the linear representation of stylistic properties in language models.
 
 *   **Executive Summary:** [https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing](https://drive.google.com/file/d/10RncaPf-ciKPA7rREnmJCw1Fz09Prsie/view?usp=sharing)
+*   **Narrative Write-up on Medium:** [https://medium.com/@mozziemgmt/my-first-ai-experiment-was-a-complete-failure-then-i-found-the-bug-2a8862870e49](https://medium.com/@mozziemgmt/my-first-ai-experiment-was-a-complete-failure-then-i-found-the-bug-2a8862870e49)
 
 ---
 
