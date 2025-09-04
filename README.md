@@ -92,6 +92,26 @@ However, the core scientific conclusion is robust and consistently reproduces ac
 
 For full numerical reproducibility of future runs, a random seed (`seed = 42`) has now been implemented in the main script, `MATS_formality_vectors.py`.
 
+#### A Note for Notebook Environments (Jupyter, Colab)
+
+If you are running this project inside a notebook, the commands should be adapted as follows:
+
+*   **To install dependencies**, run this in a cell to ensure they are installed into the correct kernel environment:
+    ```python
+    import sys
+    !{sys.executable} -m pip install -r requirements.txt
+    ```
+    *Remember to restart the kernel after the installation is complete.*
+
+*   **To run the scripts**, use the `%run` magic command in a cell:
+    ```python
+    %run MATS_formality_vectors.py
+    ```
+    and then:
+    ```python
+    %run MATS_Analysis_Only.py
+    ```
+
 ---
 
 ## Limitations
